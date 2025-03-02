@@ -2,44 +2,79 @@
 // models/FilmModel.php
 
 class FilmModel {
-    private $pdo;
+    private $apiKey;
+    private $apiUrl = "https://api.themoviedb.org/3";
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    public function __construct($apiKey) {
+        $this->apiKey = $apiKey;
+    }
+
+    private function fetchFromApi($endpoint, $params = []) {
+        $url = $this->apiUrl . $endpoint . '?api_key=' . $this->apiKey . '&' . http_build_query($params);
+        $response = file_get_contents($url);
+        return json_decode($response, true);
     }
 
     // Récupère les derniers films (limité à 10)
     public function getLatestFilms() {
-        $stmt = $this->pdo->query("SELECT * FROM movies ORDER BY created_at DESC LIMIT 10");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $this->fetchFromApi('/movie/now_playing', ['language' => 'fr-FR', 'page' => 1]);
+        return $data['results'];
     }
 
     // Récupère un film par son ID
     public function getFilmById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM movies WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $data = $this->fetchFromApi('/movie/' . $id, ['language' => 'fr-FR']);
+        return $data;
     }
 
     public function searchFilms($query) {
-        $stmt = $this->pdo->prepare("SELECT * FROM movies WHERE titre LIKE :query OR realisateur LIKE :query");
-        $stmt->execute(['query' => '%' . $query . '%']);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $this->fetchFromApi('/search/movie', ['query' => $query, 'language' => 'fr-FR']);
+        return $data['results'];
     }
-    
 
     // Récupère les films par catégorie
     public function getFilmsByCategory($categoryId) {
-        $stmt = $this->pdo->prepare("SELECT * FROM movies WHERE categorie_id = :catId LIMIT 10");
-        $stmt->execute(['catId' => $categoryId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $this->fetchFromApi('/discover/movie', ['with_genres' => $categoryId, 'language' => 'fr-FR']);
+        return $data['results'];
     }
 
     // Récupère d'autres films du même réalisateur (hors film courant)
     public function getFilmsByDirector($director, $excludeId) {
-        $stmt = $this->pdo->prepare("SELECT * FROM movies WHERE realisateur = :director AND id != :excludeId");
-        $stmt->execute(['director' => $director, 'excludeId' => $excludeId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $this->fetchFromApi('/search/person', ['query' => $director, 'language' => 'fr-FR']);
+        $directorId = $data['results'][0]['id'];
+        $movies = $this->fetchFromApi('/person/' . $directorId . '/movie_credits', ['language' => 'fr-FR']);
+        return array_filter($movies['crew'], function($movie) use ($excludeId) {
+            return $movie['id'] != $excludeId && $movie['job'] == 'Director';
+        });
+    }
+
+    // Ajouter un nouveau film
+    public function addFilm($titre, $realisateur, $categorie_id, $prix) {
+        $stmt = $this->pdo->prepare("INSERT INTO movies (titre, realisateur, categorie_id, prix) VALUES (:titre, :realisateur, :categorie_id, :prix)");
+        $stmt->execute([
+            'titre' => $titre,
+            'realisateur' => $realisateur,
+            'categorie_id' => $categorie_id,
+            'prix' => $prix
+        ]);
+    }
+
+    // Mettre à jour un film existant
+    public function updateFilm($id, $titre, $realisateur, $categorie_id, $prix) {
+        $stmt = $this->pdo->prepare("UPDATE movies SET titre = :titre, realisateur = :realisateur, categorie_id = :categorie_id, prix = :prix WHERE id = :id");
+        $stmt->execute([
+            'id' => $id,
+            'titre' => $titre,
+            'realisateur' => $realisateur,
+            'categorie_id' => $categorie_id,
+            'prix' => $prix
+        ]);
+    }
+
+    // Supprimer un film
+    public function deleteFilm($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM movies WHERE id = :id");
+        $stmt->execute(['id' => $id]);
     }
 }
 ?>

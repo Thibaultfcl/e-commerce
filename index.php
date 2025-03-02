@@ -71,6 +71,37 @@ switch ($action) {
         $controller = new HomeController($pdo);
         $controller->orderHistory();
         break;
+    case 'adminLogin':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->login();
+        break;
+    case 'adminLogout':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->logout();
+        break;
+    case 'adminDashboard':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->dashboard();
+        break;
+    case 'addFilm':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->addFilm();
+        break;
+    case 'editFilm':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->editFilm();
+        break;
+    case 'deleteFilm':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->deleteFilm();
+        break;
     default:
         echo "Action non définie";
 }
+?>
