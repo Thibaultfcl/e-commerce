@@ -2,21 +2,24 @@
 // controllers/HomeController.php
 
 require_once 'models/FilmModel.php';
+require_once 'config/database.php'; // Inclure la configuration pour obtenir la clé API
 session_start();
 
 class HomeController
 {
     private $pdo;
+    private $apiKey;
 
-    public function __construct($pdo)
+    public function __construct($pdo, $apiKey)
     {
         $this->pdo = $pdo;
+        $this->apiKey = $apiKey;
     }
 
     // Affiche la page d'accueil avec les derniers films
     public function index()
     {
-        $filmModel = new FilmModel($this->pdo);
+        $filmModel = new FilmModel($this->apiKey);
         $films = $filmModel->getLatestFilms();
         require 'views/home.php';
     }
@@ -26,7 +29,7 @@ class HomeController
         $query = $_GET['query'] ?? '';
 
         if (!empty($query)) {
-            $filmModel = new FilmModel($this->pdo);
+            $filmModel = new FilmModel($this->apiKey);
             $films = $filmModel->searchFilms($query);
         } else {
             $films = [];

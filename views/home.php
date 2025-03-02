@@ -9,7 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Internet Movies DataBase</title>
     <link rel="stylesheet" href="public/css/style.css">
-
+    <style>
+        .film-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .film-item {
+            flex: 1 1 calc(20% - 20px); /* 5 films par ligne */
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .film-item img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,17 +48,18 @@
     </header>
     <section>
         <h2>Derniers films ajoutés</h2>
-        <ul>
+        <div class="film-grid">
             <?php foreach ($films as $film) : ?>
-                <li>
-                    <img src="public/images/<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>" width="100">
-                    <h3><?php echo $film['titre']; ?></h3>
-                    <p>Prix : <?php echo $film['prix']; ?> €</p>
+                <div class="film-item">
+                    <a href="index.php?action=filmDetail&id=<?php echo $film['id']; ?>">
+                        <img src="https://image.tmdb.org/t/p/w500<?php echo $film['poster_path']; ?>" alt="<?php echo $film['title']; ?>">
+                        <h3><?php echo $film['title']; ?></h3>
+                        <p>Prix : <?php echo $film['prix']; ?> €</p>
+                    </a>
                     <a href="index.php?action=addToCart&id=<?php echo $film['id']; ?>">Ajouter au panier</a>
-                    <a href="index.php?action=filmDetail&id=<?php echo $film['id']; ?>">Voir les détails</a>
-                </li>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </section>
     <div class="cart-menu">
         <?php if (isset($_SESSION['user_id'])): ?>

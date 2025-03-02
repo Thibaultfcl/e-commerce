@@ -52,7 +52,7 @@ class AdminController {
             header("Location: index.php?action=adminLogin");
             exit;
         }
-        $filmModel = new FilmModel($this->apiKey);
+        $filmModel = new FilmModel($this->apiKey, $this->pdo);
         $films = $filmModel->getLatestFilms();
         require 'views/admin_dashboard.php';
     }
@@ -65,7 +65,7 @@ class AdminController {
             $categorie_id = $_POST['categorie_id'];
             $prix = $_POST['prix'];
 
-            $filmModel = new FilmModel($this->apiKey);
+            $filmModel = new FilmModel($this->apiKey, $this->pdo);
             $filmModel->addFilm($titre, $realisateur, $categorie_id, $prix);
 
             header("Location: index.php?action=adminDashboard");
@@ -77,7 +77,7 @@ class AdminController {
     // Modifier un film existant
     public function editFilm() {
         $id = $_GET['id'] ?? 0;
-        $filmModel = new FilmModel($this->apiKey);
+        $filmModel = new FilmModel($this->apiKey, $this->pdo);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $titre = $_POST['titre'];
@@ -98,7 +98,7 @@ class AdminController {
     // Supprimer un film
     public function deleteFilm() {
         $id = $_GET['id'] ?? 0;
-        $filmModel = new FilmModel($this->apiKey);
+        $filmModel = new FilmModel($this->apiKey, $this->pdo);
         $filmModel->deleteFilm($id);
 
         header("Location: index.php?action=adminDashboard");

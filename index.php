@@ -8,38 +8,43 @@ $action = $_GET['action'] ?? 'index';
 switch ($action) {
     case 'index':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->index();
         break;
     case 'search':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->search();
         break;
 
     case 'filmDetail':
         require_once 'controllers/FilmController.php';
-        $controller = new FilmController($pdo);
+        $controller = new FilmController($pdo, $apiKey);
         $controller->filmDetail();
         break;
     case 'filmsByCategory':
         require_once 'controllers/FilmController.php';
-        $controller = new FilmController($pdo);
+        $controller = new FilmController($pdo, $apiKey);
         $controller->filmsByCategory();
+        break;
+    case 'actorDetail':
+        require_once 'controllers/FilmController.php';
+        $controller = new FilmController($pdo, $apiKey);
+        $controller->actorDetail();
         break;
     case 'addToCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->addToCart();
         break;
     case 'showCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->showCart();
         break;
     case 'removeFromCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->removeFromCart();
         break;
     case 'register':
@@ -62,13 +67,13 @@ switch ($action) {
 
     case 'checkout':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->checkout();
         break;
 
     case 'orderHistory':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->orderHistory();
         break;
     case 'adminLogin':
