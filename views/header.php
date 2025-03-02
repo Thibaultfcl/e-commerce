@@ -29,7 +29,8 @@
                 <?php endif; ?>
             </div>
         </nav>
-        <form action="index.php?action=search" method="GET" class="search-form">
+        <form action="index.php" method="GET" class="search-form">
+            <input type="hidden" name="action" value="search">
             <input type="text" name="query" placeholder="Rechercher par titre ou réalisateur">
             <button type="submit">Rechercher</button>
         </form>

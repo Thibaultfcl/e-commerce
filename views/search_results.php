@@ -16,17 +16,18 @@
     <h1>🔍 Résultats de la recherche</h1>
 
     <?php if (!empty($films)): ?>
-        <ul>
+        <div class="film-grid">
             <?php foreach ($films as $film) : ?>
-                <li>
-                    <img src="public/images/<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>" width="100">
-                    <h3><?php echo $film['titre']; ?></h3>
-                    <p>Réalisateur : <?php echo $film['realisateur']; ?></p>
-                    <p>Prix : <?php echo $film['prix']; ?> €</p>
-                    <a href="index.php?action=filmDetail&id=<?php echo $film['id']; ?>">Voir les détails</a>
-                </li>
+                <div class="film-item">
+                    <a href="index.php?action=filmDetail&id=<?php echo $film['id']; ?>">
+                        <img src="https://image.tmdb.org/t/p/w500<?php echo $film['poster_path']; ?>" alt="<?php echo $film['title']; ?>">
+                        <h3><?php echo $film['title']; ?></h3>
+                        <p>Prix : <?php echo $film['prix']; ?> €</p>
+                    </a>
+                    <a href="index.php?action=addToCart&id=<?php echo $film['id']; ?>">Ajouter au panier</a>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     <?php else: ?>
         <p> Aucun film trouvé pour "<?php echo htmlspecialchars($_GET['query']); ?>"</p>
     <?php endif; ?>
