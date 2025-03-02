@@ -77,5 +77,3 @@ class FilmModel {
         $stmt->execute(['id' => $id]);
     }
 }
-?>
-

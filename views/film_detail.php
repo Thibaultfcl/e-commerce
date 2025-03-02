@@ -3,12 +3,14 @@
 <!-- views/film_detail.php -->
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail du Film</title>
     <link rel="stylesheet" href="public/css/style.css">
 </head>
+
 <body>
     <h1><?php echo $film['titre']; ?></h1>
     <img src="public/images/<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
@@ -27,4 +29,5 @@
         <?php endforeach; ?>
     </ul>
 </body>
+
 </html>

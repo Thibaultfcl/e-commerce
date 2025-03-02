@@ -1,5 +1,3 @@
-
-
 <?php if (!isset($_SESSION['user_id'])): ?>
     <p style="color: red;">⚠️ Vous devez être connecté pour voir votre panier.</p>
     <a href="index.php?action=login" class="auth-btn">🔑 Se connecter</a>
@@ -20,4 +18,3 @@
         <p>Votre panier est vide.</p>
     <?php endif; ?>
 <?php endif; ?>
-

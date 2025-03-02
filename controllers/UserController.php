@@ -2,15 +2,18 @@
 require_once 'models/UserModel.php';
 session_start();
 
-class UserController {
+class UserController
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     // Inscription d'un nouvel utilisateur
-    public function register() {
+    public function register()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nom = trim($_POST['nom']);
             $email = trim($_POST['email']);
@@ -32,7 +35,8 @@ class UserController {
     }
 
     // Connexion d'un utilisateur
-    public function login() {
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email']);
             $motDePasse = $_POST['mot_de_passe'];
@@ -57,10 +61,9 @@ class UserController {
     }
 
     // Déconnexion de l'utilisateur
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
         header("Location: index.php");
     }
 }
-?>
-

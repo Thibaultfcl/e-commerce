@@ -1,5 +1,4 @@
 <header>
-
     <nav>
         <?php if (isset($_SESSION['user_id'])): ?>
             <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?> !</span>
