@@ -2,6 +2,7 @@
 // controllers/HomeController.php
 
 require_once 'models/FilmModel.php';
+require_once 'config/database.php'; // Inclure la configuration pour obtenir la clé API
 session_start();
 
 class HomeController
@@ -28,7 +29,7 @@ class HomeController
         $query = $_GET['query'] ?? '';
 
         if (!empty($query)) {
-            $filmModel = new FilmModel($this->pdo);
+            $filmModel = new FilmModel($this->apiKey);
             $films = $filmModel->searchFilms($query);
         } else {
             $films = [];

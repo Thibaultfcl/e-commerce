@@ -52,7 +52,7 @@ class AdminController {
             header("Location: index.php?action=adminLogin");
             exit;
         }
-        $filmModel = new FilmModel($this->apiKey);
+        $filmModel = new FilmModel($this->apiKey, $this->pdo);
         $films = $filmModel->getLatestFilms();
         require 'views/admin_dashboard.php';
     }

@@ -19,13 +19,18 @@ switch ($action) {
 
     case 'filmDetail':
         require_once 'controllers/FilmController.php';
-        $controller = new FilmController($pdo);
+        $controller = new FilmController($pdo, $apiKey);
         $controller->filmDetail();
         break;
     case 'filmsByCategory':
         require_once 'controllers/FilmController.php';
-        $controller = new FilmController($pdo);
+        $controller = new FilmController($pdo, $apiKey);
         $controller->filmsByCategory();
+        break;
+    case 'actorDetail':
+        require_once 'controllers/FilmController.php';
+        $controller = new FilmController($pdo, $apiKey);
+        $controller->actorDetail();
         break;
     case 'addToCart':
         require_once 'controllers/HomeController.php';
