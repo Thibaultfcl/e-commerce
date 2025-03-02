@@ -52,8 +52,12 @@ class FilmModel
 
     public function searchFilms($query)
     {
-        $data = $this->fetchFromApi('/search/movie/' . $query, ['language' => 'fr-FR']);
-        return $data['results'];
+        $data = $this->fetchFromApi('/search/movie', ['query' => $query, 'language' => 'fr-FR']);
+        $films = $data['results'];
+        foreach ($films as &$film) {
+            $film['prix'] = $film['vote_average'] > 6 ? 10 : 5;
+        }
+        return $films;
     }
 
     // Récupère les films par catégorie
