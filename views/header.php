@@ -16,8 +16,13 @@
             </div>
             <div class="auth-links">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?> !</span>
-                    <a href="index.php?action=logout">Se déconnecter</a>
+                    <div class="user-info">
+                        <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?> !</span>
+                        <a href="index.php?action=logout">Se déconnecter</a>
+                    </div>
+                    <div class="cart-container">
+                        <a href="index.php?action=showCart" class="cart-btn">🛒 Voir mon panier</a>
+                    </div>
                 <?php else: ?>
                     <a href="index.php?action=login">Se connecter</a>
                     <a href="index.php?action=register">Créer un compte</a>
@@ -28,6 +33,7 @@
             <input type="text" name="query" placeholder="Rechercher par titre ou réalisateur">
             <button type="submit">Rechercher</button>
         </form>
+        
     </header>
 </body>
 

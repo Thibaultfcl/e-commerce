@@ -5,7 +5,6 @@ class FilmModel
 {
     private $apiKey;
     private $apiUrl = "https://api.themoviedb.org/3";
-    private $pdo;
 
     public function __construct($apiKey)
     {
@@ -52,7 +51,7 @@ class FilmModel
 
     public function searchFilms($query)
     {
-        $data = $this->fetchFromApi('/search/movie/' . $query, ['language' => 'fr-FR']);
+        $data = $this->fetchFromApi('/search/movie', ['query' => $query, 'language' => 'fr-FR']);
         return $data['results'];
     }
 
@@ -88,33 +87,5 @@ class FilmModel
         $data = $this->fetchFromApi('/person/' . $actorId . '/movie_credits', ['language' => 'fr-FR']);
         return $data['cast'] ?? [];
     }
-
-    // // Ajouter un nouveau film
-    // public function addFilm($titre, $realisateur, $categorie_id, $prix) {
-    //     $stmt = $this->pdo->prepare("INSERT INTO movies (titre, realisateur, categorie_id, prix) VALUES (:titre, :realisateur, :categorie_id, :prix)");
-    //     $stmt->execute([
-    //         'titre' => $titre,
-    //         'realisateur' => $realisateur,
-    //         'categorie_id' => $categorie_id,
-    //         'prix' => $prix
-    //     ]);
-    // }
-
-    // // Mettre à jour un film existant
-    // public function updateFilm($id, $titre, $realisateur, $categorie_id, $prix) {
-    //     $stmt = $this->pdo->prepare("UPDATE movies SET titre = :titre, realisateur = :realisateur, categorie_id = :categorie_id, prix = :prix WHERE id = :id");
-    //     $stmt->execute([
-    //         'id' => $id,
-    //         'titre' => $titre,
-    //         'realisateur' => $realisateur,
-    //         'categorie_id' => $categorie_id,
-    //         'prix' => $prix
-    //     ]);
-    // }
-
-    // // Supprimer un film
-    // public function deleteFilm($id) {
-    //     $stmt = $this->pdo->prepare("DELETE FROM movies WHERE id = :id");
-    //     $stmt->execute(['id' => $id]);
-    // }
 }
+?>
