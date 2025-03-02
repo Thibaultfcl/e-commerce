@@ -4,41 +4,46 @@
 require_once 'models/FilmModel.php';
 session_start();
 
-class HomeController {
+class HomeController
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     // Affiche la page d'accueil avec les derniers films
-    public function index() {
+    public function index()
+    {
         $filmModel = new FilmModel($this->pdo);
         $films = $filmModel->getLatestFilms();
         require 'views/home.php';
     }
 
-    public function search() {
+    public function search()
+    {
         $query = $_GET['query'] ?? '';
-    
+
         if (!empty($query)) {
             $filmModel = new FilmModel($this->pdo);
             $films = $filmModel->searchFilms($query);
         } else {
             $films = [];
         }
-    
+
         require 'views/search_results.php';
     }
-    
-    public function addToCart() {
-        
+
+    public function addToCart()
+    {
+
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
         }
-    
+
         $filmId = $_GET['id'];
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
@@ -48,27 +53,29 @@ class HomeController {
         } else {
             $_SESSION['cart'][$filmId] = 1;
         }
-        
+
         header("Location: index.php?action=showCart");
         exit;
     }
-    
 
-    public function showCart() {
-        
+
+    public function showCart()
+    {
+
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
         }
-    
+
         $cart = $_SESSION['cart'] ?? [];
         require 'views/cart.php';
     }
-    
+
 
     // Supprime un film du panier
-    public function removeFromCart() {
+    public function removeFromCart()
+    {
         $filmId = $_GET['id'];
         if (isset($_SESSION['cart'][$filmId])) {
             unset($_SESSION['cart'][$filmId]);
@@ -77,35 +84,36 @@ class HomeController {
         exit;
     }
 
-    public function checkout() {
-    
+    public function checkout()
+    {
+
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
         }
-    
+
         $cart = $_SESSION['cart'] ?? [];
-    
+
         if (empty($cart)) {
             header("Location: index.php?action=showCart");
             exit;
         }
-    
+
         $userId = $_SESSION['user_id'];
         $total = 0;
         $filmModel = new FilmModel($this->pdo);
-    
+
         foreach ($cart as $filmId => $quantity) {
             $film = $filmModel->getFilmById($filmId);
             $total += $film['prix'] * $quantity;
         }
-    
+
         // Insérer la commande dans la table orders
         $stmt = $this->pdo->prepare("INSERT INTO orders (user_id, total) VALUES (:userId, :total)");
         $stmt->execute(['userId' => $userId, 'total' => $total]);
         $orderId = $this->pdo->lastInsertId();
-    
+
         // Insérer les articles commandés
         foreach ($cart as $filmId => $quantity) {
             $film = $filmModel->getFilmById($filmId);
@@ -117,16 +125,17 @@ class HomeController {
                 'prix'      => $film['prix']
             ]);
         }
-    
+
         // Vider le panier après l'achat
         unset($_SESSION['cart']);
         header("Location: index.php?action=orderHistory");
         exit;
     }
-    
+
 
     // Affiche l'historique des commandes de l'utilisateur
-    public function orderHistory() {
+    public function orderHistory()
+    {
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
@@ -137,5 +146,3 @@ class HomeController {
         require 'views/order_history.php';
     }
 }
-?>
-

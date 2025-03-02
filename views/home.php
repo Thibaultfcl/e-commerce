@@ -3,6 +3,7 @@
 <!-- views/home.php -->
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="public/css/style.css">
 
 </head>
+
 <body>
     <header>
         <h1>Bienvenue sur Internet Movies Database 🎬</h1>
@@ -42,19 +44,17 @@
         </ul>
     </section>
     <div class="cart-menu">
-    <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="index.php?action=showCart" class="cart-btn">🛒 Voir mon panier</a>
-    <?php else: ?>
-        <p style="color: red;">⚠️ Connectez-vous pour voir votre panier.</p>
-    <?php endif; ?>
-</div>
-<form action="index.php" method="GET">
-    <input type="hidden" name="action" value="search">
-    <input type="text" name="query" placeholder="Rechercher un film ou un réalisateur..." required>
-    <button type="submit">🔍 Rechercher</button>
-</form>
-
-
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="index.php?action=showCart" class="cart-btn">🛒 Voir mon panier</a>
+        <?php else: ?>
+            <p style="color: red;">⚠️ Connectez-vous pour voir votre panier.</p>
+        <?php endif; ?>
+    </div>
+    <form action="index.php" method="GET">
+        <input type="hidden" name="action" value="search">
+        <input type="text" name="query" placeholder="Rechercher un film ou un réalisateur..." required>
+        <button type="submit">🔍 Rechercher</button>
+    </form>
 </body>
-</html>
 
+</html>

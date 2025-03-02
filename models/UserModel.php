@@ -1,13 +1,16 @@
 <?php
-class UserModel {
+class UserModel
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
     // Création d'un nouvel utilisateur avec mot de passe hashé
-    public function createUser($nom, $email, $motDePasse) {
+    public function createUser($nom, $email, $motDePasse)
+    {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
 
@@ -24,11 +27,10 @@ class UserModel {
     }
 
     // Récupération d'un utilisateur par email
-    public function getUserByEmail($email) {
+    public function getUserByEmail($email)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
-?>
-
