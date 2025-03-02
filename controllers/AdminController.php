@@ -57,52 +57,52 @@ class AdminController {
         require 'views/admin_dashboard.php';
     }
 
-    // Ajouter un nouveau film
-    public function addFilm() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $titre = $_POST['titre'];
-            $realisateur = $_POST['realisateur'];
-            $categorie_id = $_POST['categorie_id'];
-            $prix = $_POST['prix'];
+    // // Ajouter un nouveau film
+    // public function addFilm() {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $titre = $_POST['titre'];
+    //         $realisateur = $_POST['realisateur'];
+    //         $categorie_id = $_POST['categorie_id'];
+    //         $prix = $_POST['prix'];
 
-            $filmModel = new FilmModel($this->apiKey);
-            $filmModel->addFilm($titre, $realisateur, $categorie_id, $prix);
+    //         $filmModel = new FilmModel($this->apiKey);
+    //         $filmModel->addFilm($titre, $realisateur, $categorie_id, $prix);
 
-            header("Location: index.php?action=adminDashboard");
-            exit;
-        }
-        require 'views/add_film.php';
-    }
+    //         header("Location: index.php?action=adminDashboard");
+    //         exit;
+    //     }
+    //     require 'views/add_film.php';
+    // }
 
-    // Modifier un film existant
-    public function editFilm() {
-        $id = $_GET['id'] ?? 0;
-        $filmModel = new FilmModel($this->apiKey);
+    // // Modifier un film existant
+    // public function editFilm() {
+    //     $id = $_GET['id'] ?? 0;
+    //     $filmModel = new FilmModel($this->apiKey);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $titre = $_POST['titre'];
-            $realisateur = $_POST['realisateur'];
-            $categorie_id = $_POST['categorie_id'];
-            $prix = $_POST['prix'];
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $titre = $_POST['titre'];
+    //         $realisateur = $_POST['realisateur'];
+    //         $categorie_id = $_POST['categorie_id'];
+    //         $prix = $_POST['prix'];
 
-            $filmModel->updateFilm($id, $titre, $realisateur, $categorie_id, $prix);
+    //         $filmModel->updateFilm($id, $titre, $realisateur, $categorie_id, $prix);
 
-            header("Location: index.php?action=adminDashboard");
-            exit;
-        }
+    //         header("Location: index.php?action=adminDashboard");
+    //         exit;
+    //     }
 
-        $film = $filmModel->getFilmById($id);
-        require 'views/edit_film.php';
-    }
+    //     $film = $filmModel->getFilmById($id);
+    //     require 'views/edit_film.php';
+    // }
 
-    // Supprimer un film
-    public function deleteFilm() {
-        $id = $_GET['id'] ?? 0;
-        $filmModel = new FilmModel($this->apiKey);
-        $filmModel->deleteFilm($id);
+    // // Supprimer un film
+    // public function deleteFilm() {
+    //     $id = $_GET['id'] ?? 0;
+    //     $filmModel = new FilmModel($this->apiKey);
+    //     $filmModel->deleteFilm($id);
 
-        header("Location: index.php?action=adminDashboard");
-        exit;
-    }
+    //     header("Location: index.php?action=adminDashboard");
+    //     exit;
+    // }
 }
 ?>

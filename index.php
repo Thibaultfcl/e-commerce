@@ -8,12 +8,12 @@ $action = $_GET['action'] ?? 'index';
 switch ($action) {
     case 'index':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->index();
         break;
     case 'search':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->search();
         break;
 
@@ -29,17 +29,17 @@ switch ($action) {
         break;
     case 'addToCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->addToCart();
         break;
     case 'showCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->showCart();
         break;
     case 'removeFromCart':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->removeFromCart();
         break;
     case 'register':
@@ -62,45 +62,45 @@ switch ($action) {
 
     case 'checkout':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->checkout();
         break;
 
     case 'orderHistory':
         require_once 'controllers/HomeController.php';
-        $controller = new HomeController($pdo);
+        $controller = new HomeController($pdo, $apiKey);
         $controller->orderHistory();
         break;
-    case 'adminLogin':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($pdo, $apiKey);
-        $controller->login();
-        break;
-    case 'adminLogout':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($pdo, $apiKey);
-        $controller->logout();
-        break;
+    // case 'adminLogin':
+    //     require_once 'controllers/AdminController.php';
+    //     $controller = new AdminController($pdo, $apiKey);
+    //     $controller->login();
+    //     break;
+    // case 'adminLogout':
+    //     require_once 'controllers/AdminController.php';
+    //     $controller = new AdminController($pdo, $apiKey);
+    //     $controller->logout();
+    //     break;
     case 'adminDashboard':
         require_once 'controllers/AdminController.php';
         $controller = new AdminController($pdo, $apiKey);
         $controller->dashboard();
         break;
-    case 'addFilm':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($pdo, $apiKey);
-        $controller->addFilm();
-        break;
-    case 'editFilm':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($pdo, $apiKey);
-        $controller->editFilm();
-        break;
-    case 'deleteFilm':
-        require_once 'controllers/AdminController.php';
-        $controller = new AdminController($pdo, $apiKey);
-        $controller->deleteFilm();
-        break;
+    // case 'addFilm':
+    //     require_once 'controllers/AdminController.php';
+    //     $controller = new AdminController($pdo, $apiKey);
+    //     $controller->addFilm();
+    //     break;
+    // case 'editFilm':
+    //     require_once 'controllers/AdminController.php';
+    //     $controller = new AdminController($pdo, $apiKey);
+    //     $controller->editFilm();
+    //     break;
+    // case 'deleteFilm':
+    //     require_once 'controllers/AdminController.php';
+    //     $controller = new AdminController($pdo, $apiKey);
+    //     $controller->deleteFilm();
+    //     break;
     default:
         echo "Action non définie";
 }
