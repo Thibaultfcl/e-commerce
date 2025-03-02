@@ -9,24 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Internet Movies DataBase</title>
     <link rel="stylesheet" href="public/css/style.css">
-    <style>
-        .film-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .film-item {
-            flex: 1 1 calc(20% - 20px); /* 5 films par ligne */
-            box-sizing: border-box;
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-        .film-item img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    
 </head>
 
 <body>

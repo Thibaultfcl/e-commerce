@@ -40,11 +40,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
-.film-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+
 .film-item {
     flex: 1 1 calc(20% - 20px); /* 5 films par ligne */
     box-sizing: border-box;
@@ -54,5 +50,43 @@ a:hover {
 }
 .film-item img {
     max-width: 100%;
+    height: auto;
+}
+.film-detail {
+    text-align: center;
+}
+.film-detail img {
+    max-width: 300px;
+    height: auto;
+}
+.film-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.film-item {
+    flex: 1 1 calc(20% - 20px); /* 5 films par ligne */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.actor-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.actor-item {
+    flex: 1 1 calc(20% - 20px); /* 5 acteurs par ligne */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.actor-item img {
+    max-width: 100px;
     height: auto;
 }

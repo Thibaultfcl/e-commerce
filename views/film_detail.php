@@ -9,49 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail du Film</title>
     <link rel="stylesheet" href="public/css/style.css">
-    <style>
-        .film-detail {
-            text-align: center;
-        }
-        .film-detail img {
-            max-width: 300px;
-            height: auto;
-        }
-        .film-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .film-item {
-            flex: 1 1 calc(20% - 20px); /* 5 films par ligne */
-            box-sizing: border-box;
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-        .film-item img {
-            max-width: 100px;
-            height: auto;
-        }
-        .actor-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .actor-item {
-            flex: 1 1 calc(20% - 20px); /* 5 acteurs par ligne */
-            box-sizing: border-box;
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-        .actor-item img {
-            max-width: 100px;
-            height: auto;
-        }
-    </style>
 </head>
 
 <body>
