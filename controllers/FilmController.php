@@ -45,6 +45,7 @@ class FilmController {
         $id = $_GET['id'] ?? 0;
         $filmModel = new FilmModel($this->apiKey);
         $actor = $filmModel->getActorById($id);
+        $actor['filmography'] = $filmModel->getFilmsByActor($id);
         require 'views/actor_detail.php';
     }
 }

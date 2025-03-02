@@ -17,6 +17,53 @@ header h1 {
     margin: 0;
 }
 
+.navbar {
+    display: flex;
+    justify-content: center; /* Center the content */
+    align-items: center;
+    padding: 10px;
+}
+
+.site-name-container {
+    flex: 1;
+    text-align: center;
+}
+
+.site-name {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.auth-links {
+    position: absolute;
+    right: 10px;
+}
+
+button, .auth-links a {
+    background-color: #ee5454;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover, .auth-links a:hover {
+    background-color: #d43f3f;
+}
+
+.search-form {
+    text-align: center;
+    margin-top: 10px;
+}
+
 section {
     padding: 20px;
 }
@@ -33,12 +80,12 @@ ul li {
 }
 
 a {
-    color: blue;
+    color: black; 
     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none; 
 }
 
 .film-item {
@@ -88,5 +135,12 @@ a:hover {
 }
 .actor-item img {
     max-width: 100px;
+    height: auto;
+}
+.actor-detail {
+    text-align: center;
+}
+.actor-detail img {
+    max-width: 300px;
     height: auto;
 }

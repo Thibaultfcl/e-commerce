@@ -83,6 +83,12 @@ class FilmModel
         return $data;
     }
 
+    // Récupère les films dans lesquels un acteur a joué
+    public function getFilmsByActor($actorId) {
+        $data = $this->fetchFromApi('/person/' . $actorId . '/movie_credits', ['language' => 'fr-FR']);
+        return $data['cast'] ?? [];
+    }
+
     // // Ajouter un nouveau film
     // public function addFilm($titre, $realisateur, $categorie_id, $prix) {
     //     $stmt = $this->pdo->prepare("INSERT INTO movies (titre, realisateur, categorie_id, prix) VALUES (:titre, :realisateur, :categorie_id, :prix)");

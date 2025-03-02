@@ -9,26 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Internet Movies DataBase</title>
     <link rel="stylesheet" href="public/css/style.css">
-    
 </head>
 
 <body>
-    <header>
-        <h1>Bienvenue sur Internet Movies Database 🎬</h1>
-        <p>Explorez notre vaste collection de films d'action et de drame ! Ajoutez vos favoris au panier et passez commande en toute simplicité.</p>
-
-        <!-- Boutons vers les catégories -->
-        <div>
-            <a href="index.php?action=filmsByCategory&cat=1" class="category-btn">🎬 Films d'Action</a>
-            <a href="index.php?action=filmsByCategory&cat=2" class="category-btn">🎭 Films Dramatiques</a>
-        </div>
-
-        <!-- Formulaire de recherche -->
-        <form action="index.php?action=search" method="GET">
-            <input type="text" name="query" placeholder="Rechercher par titre ou réalisateur">
-            <button type="submit">Rechercher</button>
-        </form>
-    </header>
+    
     <section>
         <h2>Derniers films ajoutés</h2>
         <div class="film-grid">
