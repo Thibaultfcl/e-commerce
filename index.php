@@ -2,6 +2,7 @@
 // index.php
 
 require_once 'config/database.php'; // La connexion PDO est créée ici
+require_once 'config/var.php'; // La clé API est définie ici
 
 $action = $_GET['action'] ?? 'index';
 

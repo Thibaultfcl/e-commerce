@@ -9,7 +9,7 @@ class UserModel
     }
 
     // Création d'un nouvel utilisateur avec mot de passe hashé
-    public function createUser($nom, $email, $motDePasse)
+    public function createUser($username, $email, $password)
     {
         $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
@@ -18,11 +18,11 @@ class UserModel
             return false; // Email déjà utilisé
         }
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (nom, email, mot_de_passe) VALUES (:nom, :email, :motDePasse)");
+        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
         return $stmt->execute([
-            'nom' => $nom,
+            'username' => $username,
             'email' => $email,
-            'motDePasse' => password_hash($motDePasse, PASSWORD_DEFAULT)
+            'password' => password_hash($password, PASSWORD_DEFAULT)
         ]);
     }
 
@@ -33,29 +33,4 @@ class UserModel
         $stmt->execute(['email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    // Création d'un nouvel administrateur
-    public function createAdmin($nom, $email, $motDePasse) {
-        $stmt = $this->pdo->prepare("SELECT id FROM admins WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-
-        if ($stmt->fetch()) {
-            return false; // Email déjà utilisé
-        }
-
-        $stmt = $this->pdo->prepare("INSERT INTO admins (nom, email, mot_de_passe) VALUES (:nom, :email, :motDePasse)");
-        return $stmt->execute([
-            'nom' => $nom,
-            'email' => $email,
-            'motDePasse' => password_hash($motDePasse, PASSWORD_DEFAULT)
-        ]);
-    }
-
-    // Récupération d'un administrateur par email
-    public function getAdminByEmail($email) {
-        $stmt = $this->pdo->prepare("SELECT * FROM admins WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 }
-?>

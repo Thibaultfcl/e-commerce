@@ -45,9 +45,9 @@ class UserController
                 $userModel = new UserModel($this->pdo);
                 $user = $userModel->getUserByEmail($email);
 
-                if ($user && password_verify($motDePasse, $user['mot_de_passe'])) {
+                if ($user && password_verify($motDePasse, $user['password'])) {
                     $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['user_name'] = $user['nom'];
+                    $_SESSION['user_name'] = $user['username'];
                     header("Location: index.php");
                     exit;
                 } else {
