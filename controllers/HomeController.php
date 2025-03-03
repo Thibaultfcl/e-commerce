@@ -105,27 +105,39 @@ class HomeController
 
         $userId = $_SESSION['user_id'];
         $total = 0;
-        $filmModel = new FilmModel($this->pdo);
+        $filmModel = new FilmModel($this->apiKey);
 
         foreach ($cart as $filmId => $quantity) {
             $film = $filmModel->getFilmById($filmId);
             $total += $film['prix'] * $quantity;
         }
 
-        // Insérer la commande dans la table orders
-        $stmt = $this->pdo->prepare("INSERT INTO orders (user_id, total) VALUES (:userId, :total)");
+        // Debugging statement to check userId
+        error_log("User ID: " . $userId);
+
+        // Check if user exists in the user table
+        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE id = :userId");
+        $stmt->execute(['userId' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            die("User ID does not exist in the user table.");
+        }
+
+        // Insérer la commande dans la table command
+        $stmt = $this->pdo->prepare("INSERT INTO command (user_id, total_price) VALUES (:userId, :total)");
         $stmt->execute(['userId' => $userId, 'total' => $total]);
         $orderId = $this->pdo->lastInsertId();
 
         // Insérer les articles commandés
         foreach ($cart as $filmId => $quantity) {
             $film = $filmModel->getFilmById($filmId);
-            $stmt = $this->pdo->prepare("INSERT INTO order_items (order_id, movie_id, quantite, prix) VALUES (:orderId, :movieId, :quantite, :prix)");
+            $stmt = $this->pdo->prepare("INSERT INTO product_relation (command_id, product_id, quantity, price) VALUES (:orderId, :movieId, :quantity, :price)");
             $stmt->execute([
                 'orderId'   => $orderId,
                 'movieId'   => $filmId,
-                'quantite'  => $quantity,
-                'prix'      => $film['prix']
+                'quantity'  => $quantity,
+                'price'      => $film['prix']
             ]);
         }
 
@@ -143,7 +155,7 @@ class HomeController
             header("Location: index.php?action=login");
             exit;
         }
-        $stmt = $this->pdo->prepare("SELECT * FROM orders WHERE user_id = :userId ORDER BY date DESC");
+        $stmt = $this->pdo->prepare("SELECT * FROM command WHERE user_id = :userId ORDER BY created_at DESC");
         $stmt->execute(['userId' => $_SESSION['user_id']]);
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require 'views/order_history.php';

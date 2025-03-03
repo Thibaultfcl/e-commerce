@@ -15,7 +15,7 @@
     <ul>
         <?php foreach ($orders as $order): ?>
             <li>
-                Commande #<?php echo $order['id']; ?> - Total : <?php echo $order['total']; ?> € - Date : <?php echo $order['date']; ?>
+                Commande #<?php echo $order['id']; ?> - Total : <?php echo $order['total_price']; ?> € - Date : <?php echo $order['created_at']; ?>
             </li>
         <?php endforeach; ?>
     </ul>
