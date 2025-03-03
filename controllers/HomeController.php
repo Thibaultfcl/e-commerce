@@ -64,14 +64,22 @@ class HomeController
 
     public function showCart()
     {
-
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
         }
 
-        $cart = $_SESSION['cart'] ?? [];
+        $filmModel = new FilmModel($this->apiKey);
+        $films = [];
+
+        if (!empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $filmId => $quantity) {
+                $film = $filmModel->getFilmById($filmId);
+                $film['quantity'] = $quantity;
+                $films[] = $film;
+            }
+        }
         require 'views/cart.php';
     }
 
