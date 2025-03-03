@@ -31,7 +31,7 @@
         </nav>
         <form action="index.php" method="GET" class="search-form">
             <input type="hidden" name="action" value="search">
-            <input type="text" name="query" placeholder="Rechercher par titre ou réalisateur">
+            <input type="text" name="query" placeholder="Rechercher par titre">
             <button type="submit">Rechercher</button>
         </form>
         
