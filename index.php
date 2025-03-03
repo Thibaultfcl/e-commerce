@@ -72,6 +72,11 @@ switch ($action) {
         $controller = new HomeController($pdo, $apiKey);
         $controller->orderHistory();
         break;
+    case 'orderDetail':
+        require_once 'controllers/HomeController.php';
+        $controller = new HomeController($pdo, $apiKey);
+        $controller->orderDetail();
+        break;
     case 'adminDashboard':
         require_once 'controllers/AdminController.php';
         $controller = new AdminController($pdo, $apiKey);

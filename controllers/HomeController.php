@@ -155,7 +155,6 @@ class HomeController
         exit;
     }
 
-
     // Affiche l'historique des commandes de l'utilisateur
     public function orderHistory()
     {
@@ -167,5 +166,28 @@ class HomeController
         $stmt->execute(['userId' => $_SESSION['user_id']]);
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require 'views/order_history.php';
+    }
+
+    public function orderDetail()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+    
+        $orderId = $_GET['id'] ?? 0;
+    
+        // Récupérer les détails de la commande
+        $stmt = $this->pdo->prepare("SELECT * FROM product_relation WHERE command_id = :orderId");
+        $stmt->execute(['orderId' => $orderId]);
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $filmModel = new FilmModel($this->apiKey);
+        foreach ($orderDetails as &$detail) {
+            $film = $filmModel->getFilmById($detail['product_id']);
+            $detail['film'] = $film;
+        }
+    
+        require 'views/order_detail.php';
     }
 }
