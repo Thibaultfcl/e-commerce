@@ -19,7 +19,9 @@
             <?php endforeach; ?>
         </ul>
         <a href="index.php?action=checkout">✅ Valider la commande</a>
+        <a href="index.php?action=orderHistory">🗑 Ancienne commande</a>
     <?php else: ?>
         <p>Votre panier est vide.</p>
+        <a href="index.php?action=orderHistory">🗑 Ancienne commande</a>
     <?php endif; ?>
 <?php endif; ?>
