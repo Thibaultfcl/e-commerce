@@ -67,6 +67,21 @@ switch ($action) {
         $controller = new HomeController($pdo, $apiKey);
         $controller->checkout();
         break;
+    case 'paymentForm':
+        require_once 'controllers/HomeController.php';
+        $controller = new HomeController($pdo, $apiKey);
+        $controller->paymentForm();
+        break;
+    case 'processPayment':
+        require_once 'controllers/HomeController.php';
+        $controller = new HomeController($pdo, $apiKey);
+        $controller->processPayment();
+        break;
+    case 'placeOrder':
+        require_once 'controllers/HomeController.php';
+        $controller = new HomeController($pdo, $apiKey);
+        $controller->placeOrder();
+        break;
     case 'orderHistory':
         require_once 'controllers/HomeController.php';
         $controller = new HomeController($pdo, $apiKey);

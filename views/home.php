@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    
     <section>
         <h2>Derniers films ajoutés</h2>
         <div class="film-grid">
@@ -28,18 +27,6 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <div class="cart-menu">
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="index.php?action=showCart" class="cart-btn">🛒 Voir mon panier</a>
-        <?php else: ?>
-            <p style="color: red;">⚠️ Connectez-vous pour voir votre panier.</p>
-        <?php endif; ?>
-    </div>
-    <form action="index.php" method="GET">
-        <input type="hidden" name="action" value="search">
-        <input type="text" name="query" placeholder="Rechercher un film ou un réalisateur..." required>
-        <button type="submit">🔍 Rechercher</button>
-    </form>
 </body>
 
 </html>

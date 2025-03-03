@@ -57,7 +57,7 @@ class HomeController
             $_SESSION['cart'][$filmId] = 1;
         }
 
-        header("Location: index.php?action=showCart");
+        header("Location: index.php?action=index");
         exit;
     }
 
@@ -97,8 +97,104 @@ class HomeController
 
     public function checkout()
     {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
 
-        // Vérifier si l'utilisateur est connecté
+        $cart = $_SESSION['cart'] ?? [];
+
+        if (empty($cart)) {
+            header("Location: index.php?action=showCart");
+            exit;
+        }
+
+        // Rediriger vers le formulaire de paiement
+        header("Location: index.php?action=paymentForm");
+        exit;
+    }
+
+    // Affiche l'historique des commandes de l'utilisateur
+    public function orderHistory()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+        $stmt = $this->pdo->prepare("SELECT * FROM command WHERE user_id = :userId ORDER BY created_at DESC");
+        $stmt->execute(['userId' => $_SESSION['user_id']]);
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        require 'views/order_history.php';
+    }
+
+    public function orderDetail()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+
+        $orderId = $_GET['id'] ?? 0;
+
+        // Récupérer les détails de la commande
+        $stmt = $this->pdo->prepare("SELECT * FROM product_relation WHERE command_id = :orderId");
+        $stmt->execute(['orderId' => $orderId]);
+        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $filmModel = new FilmModel($this->apiKey);
+        foreach ($orderDetails as &$detail) {
+            $film = $filmModel->getFilmById($detail['product_id']);
+            $detail['film'] = $film;
+        }
+
+        require 'views/order_detail.php';
+    }
+
+    public function paymentForm()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+        require 'views/payment.php';
+    }
+
+    public function processPayment()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $cardName = trim($_POST['card_name']);
+            $cardNumber = trim($_POST['card_number']);
+            $expiryDate = trim($_POST['expiry_date']);
+            $cvv = trim($_POST['cvv']);
+
+            if (!empty($cardName) && !empty($cardNumber) && !empty($expiryDate) && !empty($cvv)) {
+                // Insérer les coordonnées bancaires dans la base de données
+                $stmt = $this->pdo->prepare("INSERT INTO payment_details (user_id, card_name, card_number, expiry_date, cvv) VALUES (:userId, :cardName, :cardNumber, :expiryDate, :cvv)");
+                $stmt->execute([
+                    'userId' => $_SESSION['user_id'],
+                    'cardName' => $cardName,
+                    'cardNumber' => $cardNumber,
+                    'expiryDate' => $expiryDate,
+                    'cvv' => $cvv
+                ]);
+
+                // Rediriger vers la méthode placeOrder pour insérer la commande
+                header("Location: index.php?action=placeOrder");
+                exit;
+            } else {
+                $error = "Tous les champs sont obligatoires.";
+                require 'views/payment_form.php';
+            }
+        }
+    }
+
+    public function placeOrder()
+    {
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit;
@@ -118,18 +214,6 @@ class HomeController
         foreach ($cart as $filmId => $quantity) {
             $film = $filmModel->getFilmById($filmId);
             $total += $film['prix'] * $quantity;
-        }
-
-        // Debugging statement to check userId
-        error_log("User ID: " . $userId);
-
-        // Check if user exists in the user table
-        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE id = :userId");
-        $stmt->execute(['userId' => $userId]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$user) {
-            die("User ID does not exist in the user table.");
         }
 
         // Insérer la commande dans la table command
@@ -153,41 +237,5 @@ class HomeController
         unset($_SESSION['cart']);
         header("Location: index.php?action=orderHistory");
         exit;
-    }
-
-    // Affiche l'historique des commandes de l'utilisateur
-    public function orderHistory()
-    {
-        if (!isset($_SESSION['user_id'])) {
-            header("Location: index.php?action=login");
-            exit;
-        }
-        $stmt = $this->pdo->prepare("SELECT * FROM command WHERE user_id = :userId ORDER BY created_at DESC");
-        $stmt->execute(['userId' => $_SESSION['user_id']]);
-        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require 'views/order_history.php';
-    }
-
-    public function orderDetail()
-    {
-        if (!isset($_SESSION['user_id'])) {
-            header("Location: index.php?action=login");
-            exit;
-        }
-    
-        $orderId = $_GET['id'] ?? 0;
-    
-        // Récupérer les détails de la commande
-        $stmt = $this->pdo->prepare("SELECT * FROM product_relation WHERE command_id = :orderId");
-        $stmt->execute(['orderId' => $orderId]);
-        $orderDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        $filmModel = new FilmModel($this->apiKey);
-        foreach ($orderDetails as &$detail) {
-            $film = $filmModel->getFilmById($detail['product_id']);
-            $detail['film'] = $film;
-        }
-    
-        require 'views/order_detail.php';
     }
 }
