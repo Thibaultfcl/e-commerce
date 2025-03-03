@@ -77,6 +77,11 @@ switch ($action) {
         $controller = new AdminController($pdo, $apiKey);
         $controller->dashboard();
         break;
+    case 'editUser':
+        require_once 'controllers/AdminController.php';
+        $controller = new AdminController($pdo, $apiKey);
+        $controller->editUser();
+        break;
     default:
         echo "Action non définie";
 }
