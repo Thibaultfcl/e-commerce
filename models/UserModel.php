@@ -26,6 +26,23 @@ class UserModel
         ]);
     }
 
+    public function createAdminUser($username, $email, $password)
+    {
+        $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+
+        if ($stmt->fetch()) {
+            return false; // Email déjà utilisé
+        }
+
+        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, 'admin')");
+        return $stmt->execute([
+            'username' => $username,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ]);
+    }
+
     // Récupération d'un utilisateur par email
     public function getUserByEmail($email)
     {
