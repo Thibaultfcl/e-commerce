@@ -21,6 +21,9 @@
                         <a href="index.php?action=logout">Se déconnecter</a>
                     </div>
                     <div class="cart-container">
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 'admin'): ?>
+                            <a href="index.php?action=adminDashboard" class="admin-btn">⚙️ Admin Panel</a>
+                        <?php endif; ?>
                         <a href="index.php?action=showCart" class="cart-btn">🛒 Voir mon panier</a>
                     </div>
                 <?php else: ?>
@@ -34,7 +37,6 @@
             <input type="text" name="query" placeholder="Rechercher par titre">
             <button type="submit">Rechercher</button>
         </form>
-        
     </header>
 </body>
 

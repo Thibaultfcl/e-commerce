@@ -151,6 +151,10 @@ a:hover {
 
 .cart-container {
     margin-top: 10px;
+    display: flex;
+    flex-direction: row; /* Aligner les boutons sur la même ligne */
+    gap: 10px; /* Ajouter un espace entre les boutons */
+    align-items: center;
 }
 
 .user-info {
@@ -158,4 +162,20 @@ a:hover {
     align-items: center;
     gap: 10px; 
     margin-top: 30px;
+}
+
+.admin-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.admin-btn:hover {
+    background-color: #45a049;
 }

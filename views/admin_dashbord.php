@@ -18,8 +18,6 @@
         <li>
             <h3><?php echo $film['titre']; ?></h3>
             <p>Prix : <?php echo $film['prix']; ?> €</p>
-            <a href="index.php?action=editFilm&id=<?php echo $film['id']; ?>">Modifier</a>
-            <a href="index.php?action=deleteFilm&id=<?php echo $film['id']; ?>">Supprimer</a>
         </li>
     <?php endforeach; ?>
 </ul>

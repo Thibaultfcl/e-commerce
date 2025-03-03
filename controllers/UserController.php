@@ -21,7 +21,7 @@ class UserController
 
             if (!empty($nom) && !empty($email) && !empty($motDePasse)) {
                 $userModel = new UserModel($this->pdo);
-                if ($userModel->createUser($nom, $email, $motDePasse)) {
+                if ($userModel->createUser($nom, $email, $motDePasse)) { //pour créer un admin modifier la fonction createUser en createAdminUser
                     header("Location: index.php?action=login");
                     exit;
                 } else {
@@ -47,6 +47,7 @@ class UserController
 
                 if ($user && password_verify($motDePasse, $user['password'])) {
                     $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['is_admin'] = $user['role'];
                     $_SESSION['user_name'] = $user['username'];
                     header("Location: index.php");
                     exit;

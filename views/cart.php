@@ -1,10 +1,6 @@
 <?php include 'views/header.php'; ?>
 
-<?php if (!isset($_SESSION['user_id'])): ?>
-    <p style="color: red;">⚠️ Vous devez être connecté pour voir votre panier.</p>
-    <a href="index.php?action=login" class="auth-btn">🔑 Se connecter</a>
-    <a href="index.php?action=register" class="auth-btn">📝 Créer un compte</a>
-<?php else: ?>
+
     <h1>Votre Panier</h1>
     <?php if (!empty($films)): ?>
         <ul>
@@ -24,4 +20,3 @@
         <p>Votre panier est vide.</p>
         <a href="index.php?action=orderHistory">🗑 Ancienne commande</a>
     <?php endif; ?>
-<?php endif; ?>
