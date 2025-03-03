@@ -44,4 +44,3 @@ class AdminModel
         $stmt->execute(['username' => $username, 'email' => $email, 'id' => $id]);
     }
 }
-?>

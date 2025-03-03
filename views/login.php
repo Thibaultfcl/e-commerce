@@ -11,20 +11,22 @@
 </head>
 
 <body>
-    <h1>Connexion</h1>
-    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <section class="login-section">
+        <h1>Connexion</h1>
+        <?php if (isset($error)) echo "<p class='error-msg'>$error</p>"; ?>
 
-    <form action="index.php?action=login" method="POST">
-        <label>Email:</label>
-        <input type="email" name="email" required><br>
+        <form action="index.php?action=login" method="POST" class="login-form">
+            <label>Email:</label>
+            <input type="email" name="email" required class="login-input"><br>
 
-        <label>Mot de passe:</label>
-        <input type="password" name="mot_de_passe" required><br>
+            <label>Mot de passe:</label>
+            <input type="password" name="mot_de_passe" required class="login-input"><br>
 
-        <button type="submit">Se connecter</button>
-    </form>
+            <button type="submit" class="login-btn">Se connecter</button>
+        </form>
 
-    <p>Pas encore inscrit ? <a href="index.php?action=register">Créez un compte</a></p>
+        <p>Pas encore inscrit ? <a href="index.php?action=register" class="register-link">Créez un compte</a></p>
+    </section>
 </body>
 
 </html>

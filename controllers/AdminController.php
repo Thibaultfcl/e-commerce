@@ -63,4 +63,3 @@ class AdminController
         require 'views/edit_user.php';
     }
 }
-?>

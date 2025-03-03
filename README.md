@@ -7,7 +7,6 @@ Film&Chill est une application web de commerce électronique pour acheter des fi
 - Affichage des derniers films ajoutés
 - Recherche de films par titre
 - Affichage des détails d'un film
-- Affichage des films par catégorie
 - Affichage des détails d'un acteur et des films dans lesquels il a joué
 - Ajout de films au panier
 - Validation des commandes

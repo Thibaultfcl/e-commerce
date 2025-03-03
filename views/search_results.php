@@ -32,8 +32,6 @@
         <p> Aucun film trouvé pour "<?php echo htmlspecialchars($_GET['query']); ?>"</p>
     <?php endif; ?>
 
-    <a href="index.php">🏠 Retour à l'accueil</a>
-
 </body>
 
 </html>

@@ -11,16 +11,18 @@
 </head>
 
 <body>
-    <h1>Historique des Achats</h1>
-    <ul>
-        <?php foreach ($orders as $order): ?>
-            <li>
-                <a href="index.php?action=orderDetail&id=<?php echo $order['id']; ?>">
-                    Commande #<?php echo $order['id']; ?> - Total : <?php echo $order['total_price']; ?> € - Date : <?php echo $order['created_at']; ?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <section class="order-history-section">
+        <h1>Historique des Achats</h1>
+        <ul class="order-list">
+            <?php foreach ($orders as $order): ?>
+                <li class="order-item">
+                    <a href="index.php?action=orderDetail&id=<?php echo $order['id']; ?>" class="order-link">
+                        Commande #<?php echo $order['id']; ?> - Total : <?php echo $order['total_price']; ?> € - Date : <?php echo $order['created_at']; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
 </body>
 
 </html>

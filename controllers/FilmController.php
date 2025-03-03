@@ -5,17 +5,20 @@ require_once 'models/FilmModel.php';
 require_once 'config/database.php'; // Inclure la configuration pour obtenir la clé API
 session_start();
 
-class FilmController {
+class FilmController
+{
     private $pdo;
     private $apiKey;
 
-    public function __construct($pdo, $apiKey) {
+    public function __construct($pdo, $apiKey)
+    {
         $this->pdo = $pdo;
         $this->apiKey = $apiKey;
     }
 
     // Affiche le détail d'un film
-    public function filmDetail() {
+    public function filmDetail()
+    {
         $id = $_GET['id'] ?? 0;
         $filmModel = new FilmModel($this->apiKey);
         $film = $filmModel->getFilmById($id);
@@ -25,7 +28,8 @@ class FilmController {
     }
 
     // Affiche les films d'une catégorie
-    public function filmsByCategory() {
+    public function filmsByCategory()
+    {
         $categoryId = $_GET['cat'] ?? 0;
         $filmModel = new FilmModel($this->apiKey);
 
@@ -41,7 +45,8 @@ class FilmController {
     }
 
     // Affiche les informations d'un acteur et les films dans lesquels il a joué
-    public function actorDetail() {
+    public function actorDetail()
+    {
         $id = $_GET['id'] ?? 0;
         $filmModel = new FilmModel($this->apiKey);
         $actor = $filmModel->getActorById($id);
@@ -49,4 +54,3 @@ class FilmController {
         require 'views/actor_detail.php';
     }
 }
-?>

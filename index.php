@@ -105,4 +105,3 @@ switch ($action) {
     default:
         echo "Action non définie";
 }
-?>

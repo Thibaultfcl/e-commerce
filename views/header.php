@@ -34,8 +34,8 @@
         </nav>
         <form action="index.php" method="GET" class="search-form">
             <input type="hidden" name="action" value="search">
-            <input type="text" name="query" placeholder="Rechercher par titre">
-            <button type="submit">Rechercher</button>
+            <input type="text" name="query" placeholder="Rechercher par titre" class="search-input">
+            <button type="submit" class="search-button">Rechercher</button>
         </form>
     </header>
 </body>

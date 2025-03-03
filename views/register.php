@@ -11,23 +11,25 @@
 </head>
 
 <body>
-    <h1>Inscription</h1>
-    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <section class="register-section">
+        <h1>Inscription</h1>
+        <?php if (isset($error)) echo "<p class='error-msg'>$error</p>"; ?>
 
-    <form action="index.php?action=register" method="POST">
-        <label>Nom:</label>
-        <input type="text" name="nom" required><br>
+        <form action="index.php?action=register" method="POST" class="register-form">
+            <label>Nom:</label>
+            <input type="text" name="nom" required class="register-input"><br>
 
-        <label>Email:</label>
-        <input type="email" name="email" required><br>
+            <label>Email:</label>
+            <input type="email" name="email" required class="register-input"><br>
 
-        <label>Mot de passe:</label>
-        <input type="password" name="mot_de_passe" required><br>
+            <label>Mot de passe:</label>
+            <input type="password" name="mot_de_passe" required class="register-input"><br>
 
-        <button type="submit">S'inscrire</button>
-    </form>
+            <button type="submit" class="register-btn">S'inscrire</button>
+        </form>
 
-    <p>Déjà inscrit ? <a href="index.php?action=login">Connectez-vous</a></p>
+        <p>Déjà inscrit ? <a href="index.php?action=login" class="login-link">Connectez-vous</a></p>
+    </section>
 </body>
 
 </html>

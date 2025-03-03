@@ -12,16 +12,18 @@
 </head>
 
 <body>
-    <div class="film-detail">
+    <section class="film-detail-section">
         <h2><?php echo $film['title'] ?? 'Titre non disponible'; ?></h2>
-        <img src="https://image.tmdb.org/t/p/w500<?php echo $film['poster_path'] ?? ''; ?>" alt="<?php echo $film['title'] ?? 'Titre non disponible'; ?>">
-        <p>Réalisateur : <?php echo $film['director'] ?? 'Non disponible'; ?></p>
-        <p>Synopsis : <?php echo $film['overview'] ?? 'Non disponible'; ?></p>
-        <p>Date de sortie : <?php echo $film['release_date'] ?? 'Non disponible'; ?></p>
-        <p>Note : <?php echo $film['vote_average'] ?? 'Non disponible'; ?>/10</p>
-        <p>Prix : <?php echo $film['prix'] ?? 'Non disponible'; ?> €</p>
-        <a href="index.php?action=addToCart&id=<?php echo $film['id']; ?>">Ajouter au panier</a>
-        <p>Acteurs :</p>
+        <img src="https://image.tmdb.org/t/p/w500<?php echo $film['poster_path'] ?? ''; ?>" alt="<?php echo $film['title'] ?? 'Titre non disponible'; ?>" class="film-detail-img">
+        <div class="film-detail-info">
+            <p>Réalisateur : <?php echo $film['director'] ?? 'Non disponible'; ?></p>
+            <p>Synopsis : <?php echo $film['overview'] ?? 'Non disponible'; ?></p>
+            <p>Date de sortie : <?php echo $film['release_date'] ?? 'Non disponible'; ?></p>
+            <p>Note : <?php echo $film['vote_average'] ?? 'Non disponible'; ?>/10</p>
+            <p>Prix : <?php echo $film['prix'] ?? 'Non disponible'; ?> €</p>
+            <a href="index.php?action=addToCart&id=<?php echo $film['id']; ?>" class="add-to-cart-btn">Ajouter au panier</a>
+        </div>
+        <h3>Acteurs :</h3>
         <div class="actor-grid">
             <?php foreach (array_slice($film['cast'], 0, 10) as $actor) : ?>
                 <div class="actor-item">
@@ -32,22 +34,22 @@
                 </div>
             <?php endforeach; ?>
         </div>
-    </div>
-    <h3>D'autres films du même réalisateur</h3>
-    <div class="film-grid">
-        <?php if (isset($otherFilms) && is_array($otherFilms)) : ?>
-            <?php foreach ($otherFilms as $otherFilm) : ?>
-                <div class="film-item">
-                    <a href="index.php?action=filmDetail&id=<?php echo $otherFilm['id']; ?>">
-                        <h4><?php echo $otherFilm['title'] ?? 'Titre non disponible'; ?></h4>
-                        <img src="https://image.tmdb.org/t/p/w500<?php echo $otherFilm['poster_path'] ?? ''; ?>" alt="<?php echo $otherFilm['title'] ?? 'Titre non disponible'; ?>" width="100">
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <p>Aucun autre film disponible.</p>
-        <?php endif; ?>
-    </div>
+        <h3>D'autres films du même réalisateur</h3>
+        <div class="film-grid">
+            <?php if (isset($otherFilms) && is_array($otherFilms)) : ?>
+                <?php foreach ($otherFilms as $otherFilm) : ?>
+                    <div class="film-item">
+                        <a href="index.php?action=filmDetail&id=<?php echo $otherFilm['id']; ?>">
+                            <h4><?php echo $otherFilm['title'] ?? 'Titre non disponible'; ?></h4>
+                            <img src="https://image.tmdb.org/t/p/w500<?php echo $otherFilm['poster_path'] ?? ''; ?>" alt="<?php echo $otherFilm['title'] ?? 'Titre non disponible'; ?>" width="100">
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>Aucun autre film disponible.</p>
+            <?php endif; ?>
+        </div>
+    </section>
 </body>
 
 </html>

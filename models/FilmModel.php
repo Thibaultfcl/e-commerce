@@ -30,7 +30,8 @@ class FilmModel
     }
 
     // Récupère un film par son ID
-    public function getFilmById($id) {
+    public function getFilmById($id)
+    {
         $data = $this->fetchFromApi('/movie/' . $id, ['language' => 'fr-FR', 'append_to_response' => 'credits']);
         if (isset($data['credits'])) {
             $data['director'] = $this->getDirectorFromCredits($data['credits']);
@@ -40,7 +41,8 @@ class FilmModel
         return $data;
     }
 
-    private function getDirectorFromCredits($credits) {
+    private function getDirectorFromCredits($credits)
+    {
         foreach ($credits['crew'] as $crewMember) {
             if ($crewMember['job'] === 'Director') {
                 return $crewMember['name'];
@@ -73,7 +75,7 @@ class FilmModel
         if (isset($data['results'][0])) {
             $directorId = $data['results'][0]['id'];
             $movies = $this->fetchFromApi('/person/' . $directorId . '/movie_credits', ['language' => 'fr-FR']);
-            return array_filter($movies['crew'], function($movie) use ($excludeId) {
+            return array_filter($movies['crew'], function ($movie) use ($excludeId) {
                 return $movie['id'] != $excludeId && $movie['job'] == 'Director';
             });
         }
@@ -81,15 +83,16 @@ class FilmModel
     }
 
     // Récupère les informations d'un acteur et les films dans lesquels il a joué
-    public function getActorById($id) {
+    public function getActorById($id)
+    {
         $data = $this->fetchFromApi('/person/' . $id, ['language' => 'fr-FR', 'append_to_response' => 'movie_credits']);
         return $data;
     }
 
     // Récupère les films dans lesquels un acteur a joué
-    public function getFilmsByActor($actorId) {
+    public function getFilmsByActor($actorId)
+    {
         $data = $this->fetchFromApi('/person/' . $actorId . '/movie_credits', ['language' => 'fr-FR']);
         return $data['cast'] ?? [];
     }
 }
-?>
