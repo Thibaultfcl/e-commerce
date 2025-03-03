@@ -21,7 +21,7 @@ Film&Chill est une application web de commerce électronique pour acheter des fi
 
 2. Créez un fichier `.env` dans le répertoire [config](http://_vscodecontentref_/2) et ajoutez votre clé API de The Movie Database (TMDb) :
     ```
-    API_KEY=your_api_key_here
+    API_KEY=c75fb9459be6e67eac25c5da7c1d1ea3
     ```
 
 3. Démarrez votre serveur web (par exemple, XAMPP ou WAMP) et accédez à l'application via `http://localhost/e-commerce`.
